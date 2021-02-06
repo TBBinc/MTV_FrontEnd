@@ -2,7 +2,6 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, Button, Platform, StyleSheet} from 'react-native';
-import * as Location from 'expo-location';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -13,39 +12,19 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
-  const [location, setLocation] = useState(null);
-
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
   useEffect(() => {
-    (async () => {
-      let locationEnabled = await Location.hasServicesEnabledAsync();
-      if (!locationEnabled){
-        alert("Turn on your location services to use this app");
-      }
-      else{
-        let { status } = await Location.requestPermissionsAsync();
-        if (status === 'granted') {
-          let location = await Location.getCurrentPositionAsync({});
-          setLocation(location);
-        }
-        else{
-          //setErrorMsg('Permission to access location was denied');
-          alert('Allow access to location services to use this app');
-        }
-      }
-    })();
-}, []);
-
-  useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
     });
+
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log(response);
@@ -56,15 +35,6 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-
-  let text = 'Waiting..';
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else 
-  if (location) {
-    console.log(location);
-    text = JSON.stringify(location);
-  }
 
   return (
     <View
@@ -78,7 +48,6 @@ export default function App() {
         <Text>Title: {notification && notification.request.content.title} </Text>
         <Text>Body: {notification && notification.request.content.body}</Text>
         <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-        <Text>{text}</Text>
       </View>
       <Button
         title="Press to Send Notification"
