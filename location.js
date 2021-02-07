@@ -4,7 +4,7 @@ import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MapView from "react-native-maps";
 
-export default function Geo (props) {
+export default function Geo(props) {
   console.log(props.show);
   console.log(JSON.parse(props.coords));
   const [latitude, setLat] = useState(null);
@@ -72,40 +72,46 @@ export default function Geo (props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>Latitude = {latitude}</Text>
-      <Text style={styles.paragraph}>Longitute = {longitude}</Text>
-      <MapView style={styles.map}
-          initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0,
-              longitudeDelta: 0.0,
-          }}
-        >
+      {/* <Text style={styles.paragraph}>Latitude = {latitude}</Text>
+      <Text style={styles.paragraph}>Longitute = {longitude}</Text> */}
+      <Text style={styles.title}>Your Vaccination Centre</Text>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0043,
+          longitudeDelta: 0.0034,
+        }}
+      >
         <MapView.Marker
-            coordinate={{latitude: 37.78825, longitude: -122.4324}}
-         />
+          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+        />
       </MapView>
     </View>
   );
 }
 
 var styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    //backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 200,
+    marginTop: 30,
   },
-    map: {
-      height: 800,
-      width: 800,
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-    }
-});
+  map: {
+    height: 250,
+    width: 375,
+    position: "absolute",
+    top: 0,
+    left: -5,
+    right: 0,
+    bottom: 0,
+  },
 
+  title: {
+    fontSize: 35,
+    marginBottom: 55,
+  },
+});

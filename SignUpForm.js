@@ -76,7 +76,7 @@ export default function SignUpForm() {
       console.log("Error retrieving data" + error);
     }
     alert(
-      "Success! Please provide QRCode shown below at the beginning of your vaccination appointment. Thank you!"
+      "Registration Complete! Please provide your QR Code shown here at the beginning of your vaccination appointment. Thank you!"
     );
   };
   return (
@@ -126,7 +126,7 @@ export default function SignUpForm() {
           <Text h1 style={styles.qrTitle}>
             Your QR Code
           </Text>
-          <QRCode value={formJson} size={250} />
+          <QRCode value={formJson} size={300} />
         </View>
       )}
     </View>
@@ -142,8 +142,8 @@ const styles = StyleSheet.create({
   },
 
   qrTitle: {
-    fontSize: 50,
-    right: 15,
+    fontSize: 35,
+    left: 50,
     marginBottom: 5,
   },
 
@@ -162,9 +162,9 @@ const styles = StyleSheet.create({
   },
 
   qr: {
-    marginLeft: 50,
-
-    marginTop: 20,
+    marginLeft: 32,
+    marginBottom: 50,
+    paddingBottom: 20,
   },
 
   formContent: {
