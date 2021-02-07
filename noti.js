@@ -85,7 +85,7 @@ export default function Noti() {
   return (
     <View>
       {notification && JSON.stringify(notification.request.content.data) ? 
-        <Geo show = "yes" coords = {JSON.stringify(notification.request.content.data)}/> : null}
+        <Geo show = "yes" coords = {JSON.stringify(notification.request.content.data)}/> : <Geo/>}
     </View>
   );
   //   return (

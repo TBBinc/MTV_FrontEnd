@@ -5,8 +5,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MapView from "react-native-maps";
 
 export default function Geo(props) {
-  console.log(props.show);
-  console.log(JSON.parse(props.coords));
+  let latdata, longdata;
+  if (props.coords != null) {
+    console.log(props.show);
+    let ob = JSON.parse(props.coords);
+    latdata = ob.latdata;
+    longdata = ob.longdata;
+    console.log(props.coords.latdata);
+    console.log(props.coords.longdata);
+  }
   const [latitude, setLat] = useState(null);
   const [longitude, setLong] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -71,23 +78,25 @@ export default function Geo(props) {
   }
 
   return (
-    <View style={styles.container}>
-      {/* <Text style={styles.paragraph}>Latitude = {latitude}</Text>
-      <Text style={styles.paragraph}>Longitute = {longitude}</Text> */}
-      <Text style={styles.title}>Your Vaccination Centre</Text>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0043,
-          longitudeDelta: 0.0034,
-        }}
-      >
-        <MapView.Marker
-          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-        />
-      </MapView>
+    <View>
+      {props.coords != null ? 
+      <View style={styles.container}>
+        <Text style={styles.title}>Your Vaccination Centre</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0043,
+            longitudeDelta: 0.0034,
+          }}
+        >
+          <MapView.Marker
+            coordinate={{ latitude: {latdata}, longitude: {longdata} }}
+          />
+        </MapView>
+      </View>
+      : null}
     </View>
   );
 }
