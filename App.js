@@ -9,7 +9,7 @@ export default function App() {
     <View style={styles.container}>
       <SignUpForm/>
       <Geo/>
-      <Noti/>
+      {/* <Noti/> */}
     </View>
   );
 }
@@ -17,10 +17,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    //paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
-    paddingBottom: 50,
+    padding: 10,
   }
 });
 

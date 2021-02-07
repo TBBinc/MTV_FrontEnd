@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import QRCode from "react-native-qrcode-svg";
 import {
   Text,
   View,
@@ -30,7 +31,7 @@ export default function SignUpForm() {
       let lName = resObject.lastName;
       let age = resObject.age;
       let hCardNum = resObject.healthCardNum;
-      console.log('\n'+ 'Start of Patient Info');
+      console.log("\n" + "Start of Patient Info");
       console.log(fName);
       console.log(lName);
       console.log(age);
@@ -61,47 +62,51 @@ export default function SignUpForm() {
           pushToken: tokenObject,
         }),
       })
-      .then((response) => response.text())
-      .then((responseData) => {
-        console.log("POST Response -> " + responseData);
-      });
+        .then((response) => response.text())
+        .then((responseData) => {
+          console.log("POST Response -> " + responseData);
+        });
     } catch (error) {
       console.log("Error retrieving data" + error);
     }
+    alert(
+      "Success! Please provide QRCode shown below at the beginning of your vaccination appointment. Thank you!"
+    );
   };
 
   return (
     <View>
-      <TextInput
-        style={styles.textInputs}
-        placeholder="Enter first name"
-        onChangeText={(text) => setFirstName(text)}
-        value={firstName}
-      />
-      <TextInput
-        style={styles.textInputs}
-        placeholder="Enter last name"
-        onChangeText={(text) => setLastName(text)}
-        value={lastName}
-      />
-      <TextInput
-        style={styles.textInputs}
-        placeholder="Enter Age"
-        onChangeText={(text) => setAge(text)}
-        value={age}
-        keyboardType={"number-pad"}
-      />
-      <TextInput
-        style={styles.textInputs}
-        placeholder="Enter Health Card Number"
-        onChangeText={(text) => sethealthCardNum(text)}
-        value={healthCardNum}
-      />
-      {/* <DatePicker
-        date={healthCardExpDate}
-        onDateChange={sethealthCardEx}
-      /> */}
-      <Button title="Sign Up Here" onPress={() => saveInfo()} />
+      <View style={styles.formData}>
+        <TextInput
+          style={styles.textInputs}
+          placeholder="Enter first name"
+          onChangeText={(text) => setFirstName(text)}
+          value={firstName}
+        />
+        <TextInput
+          style={styles.textInputs}
+          placeholder="Enter last name"
+          onChangeText={(text) => setLastName(text)}
+          value={lastName}
+        />
+        <TextInput
+          style={styles.textInputs}
+          placeholder="Enter Age"
+          onChangeText={(text) => setAge(text)}
+          value={age}
+          keyboardType={"number-pad"}
+        />
+        <TextInput
+          style={styles.textInputs}
+          placeholder="Enter Health Card Number"
+          onChangeText={(text) => sethealthCardNum(text)}
+          value={healthCardNum}
+        />
+        <Button title="Sign Up Here" onPress={() => saveInfo()} />
+      </View>
+      <View style={styles.qr} >
+        <QRCode value="http://awesome.link.qr" />
+      </View>
     </View>
   );
 }
@@ -114,5 +119,13 @@ const styles = StyleSheet.create({
     margin: 5,
     paddingTop: 5,
     paddingLeft: 5,
+  },
+
+  qr: {
+      
+  },
+
+  formData: {
+    //margin:10,
   },
 });
