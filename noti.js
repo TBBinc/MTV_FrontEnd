@@ -2,6 +2,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { Component, useState, useEffect, useRef } from 'react';
 import { Text, View, Button, Platform, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -12,25 +13,25 @@ Notifications.setNotificationHandler({
 });
 
 //Can use this function below, OR use Expo's Push Notification Tool-> https://expo.io/notifications
-async function sendPushNotification(expoPushToken) {
-    const message = {
-      to: expoPushToken,
-      sound: 'default',
-      title: 'Original Title',
-      body: 'And here is the body!',
-      data: { someData: 'goes here' },
-    };
+// async function sendPushNotification(expoPushToken) {
+//     const message = {
+//       to: expoPushToken,
+//       sound: 'default',
+//       title: 'Original Title',
+//       body: 'And here is the body!',
+//       data: { someData: 'goes here' },
+//     };
   
-    await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Accept-encoding': 'gzip, deflate',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(message),
-    });
-  }
+//     await fetch('https://exp.host/--/api/v2/push/send', {
+//       method: 'POST',
+//       headers: {
+//         Accept: 'application/json',
+//         'Accept-encoding': 'gzip, deflate',
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(message),
+//     });
+//   }
   
   async function registerForPushNotificationsAsync() {
     let token;
@@ -46,8 +47,13 @@ async function sendPushNotification(expoPushToken) {
         return;
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(token);
-    } else {
+      //console.log(token);
+      let expoToken = JSON.stringify(token);
+      try {
+        await AsyncStorage.setItem('pushToken', expoToken);
+      } catch (error) {console.log("Error retrieving data" + error);}
+    } 
+    else {
       alert('Must use physical device for Push Notifications');
     }
   
@@ -96,7 +102,7 @@ export default function Noti () {
         paddingTop: 200,
       }}>
       <Text>{expoPushToken}</Text>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      {/* <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {notification && notification.request.content.title} </Text>
         <Text>Body: {notification && notification.request.content.body}</Text>
         <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
@@ -104,9 +110,10 @@ export default function Noti () {
       <Button
         title="Press to Send Notification"
         onPress={async () => {
-          await sendPushNotification(expoPushToken);
+          //await sendPushNotification(expoPushToken);
         }}
-      />
+      /> */}
     </View>
   );
 }
+

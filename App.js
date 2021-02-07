@@ -2,12 +2,14 @@ import * as React from 'react';
 import { View, StyleSheet } from "react-native";
 import Noti from './noti.js';
 import Geo from './location.js';
+import SignUpForm from './SignUpForm.js';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Noti/>
+      <SignUpForm/>
       <Geo/>
+      <Noti/>
     </View>
   );
 }
