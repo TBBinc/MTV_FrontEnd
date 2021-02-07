@@ -59,7 +59,6 @@ async function sendPushNotification(expoPushToken) {
         lightColor: '#FF231F7C',
       });
     }
-  
     return token;
   }
 

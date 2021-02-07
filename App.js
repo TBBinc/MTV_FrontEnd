@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { View, StyleSheet } from "react-native";
 import Noti from './noti.js';
 import Geo from './location.js';
@@ -20,3 +21,4 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   }
 });
+
