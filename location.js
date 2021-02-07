@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Text, View, StyleSheet, AppState } from "react-native";
-import Constants from "expo-constants";
 import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MapView from "react-native-maps";
-import Marker from "react-native-maps";
 
-export default function Geo() {
+export default function Geo (props) {
+  console.log(props.show);
+  console.log(JSON.parse(props.coords));
   const [latitude, setLat] = useState(null);
   const [longitude, setLong] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -83,10 +83,7 @@ export default function Geo() {
           }}
         >
         <MapView.Marker
-            coordinate={{latitude: 37.78825,
-            longitude: -122.4324}}
-            title={"title"}
-            description={"description"}
+            coordinate={{latitude: 37.78825, longitude: -122.4324}}
          />
       </MapView>
     </View>
@@ -102,8 +99,10 @@ var styles = StyleSheet.create({
     //backgroundColor: '#F5FCFF',
   },
     map: {
+      height: 800,
+      width: 800,
       position: 'absolute',
-      top: 250,
+      top: 0,
       left: 0,
       right: 0,
       bottom: 0,

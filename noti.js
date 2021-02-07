@@ -1,8 +1,9 @@
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import React, { Component, useState, useEffect, useRef } from "react";
-import { Text, View, Button, Platform, StyleSheet } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, Platform, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Geo from './location.js';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -83,8 +84,9 @@ export default function Noti() {
   
   return (
     <View>
-      {notification && JSON.stringify(notification.request.content.data) ? <Location></Location> : null}
-  </View>
+      {notification && JSON.stringify(notification.request.content.data) ? 
+        <Geo show = "yes" coords = {JSON.stringify(notification.request.content.data)}/> : null}
+    </View>
   );
   //   return (
   //     <View

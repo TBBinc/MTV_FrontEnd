@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import Noti from './noti.js';
-import Geo from './location.js';
 import SignUpForm from './SignUpForm.js';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <SignUpForm/>
-      <Geo/>
-      {/* <Noti/> */}
+      {/* <Geo/> */}
+      <Noti/>
     </View>
   );
 }
@@ -17,7 +16,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1',
+    justifyContent: "center",
+    backgroundColor: "#78C980",
     padding: 10,
   }
 });
